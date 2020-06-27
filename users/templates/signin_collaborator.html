@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+Вход для сотрудника
+{% endblock %}
+
+{% block body %}
+<form action="{% url 'user:signin_collaborator' phone %}" method="POST">
+    {% if form.non_field_errors  %}
+    <p class="text-danger">
+        {{ form.non_field_errors }}
+    </p>
+    {% endif %}
+
+    {% csrf_token %}
+
+    <div class="form-label-group mb-3">
+        <label for="{{form.password.id_for_label}}">Пароль</label>
+        <input required id="{{form.password.id_for_label}}" name="{{form.password.name}}" value="" type="password"
+            class="form-control" placeholder="Пароль">
+        {% if form.password.errors %}
+        <div class="alert-danger" role="alert">
+            {{form.password.errors }}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-label-group mb-3">
+        <label for="{{form.otp_code.id_for_label}}">OTP-пароль</label>
+        <input required id="{{form.otp_code.id_for_label}}" name="{{form.otp_code.name}}" value="" type="number"
+            class="form-control" placeholder="OTP-пароль">
+        {% if form.otp_code.errors %}
+        <div class="alert-danger" role="alert">
+            {{form.otp_code.errors }}
+        </div>
+        {% endif %}
+    </div>
+
+    <input required hidden id="{{form.phone_number.id_for_label}}" name="{{form.phone_number.name}}" value="{{phone}}"
+        type="text" class="form-control" placeholder="phone_number">
+
+    <button type="submit" class="btn btn-primary">Далее</button>
+</form>
+{% endblock body %}

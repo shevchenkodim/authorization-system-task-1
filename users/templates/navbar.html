@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-start ">
+    <a href="/" class="navbar-brand pl-3">Task_1</a>
+    <ul class="nav navbar-nav">
+        {% if user.is_active %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:logout' %}">Виход<span class="sr-only">(current)</span></a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'user:generating_otp' %}">Зайти в систему<span
+                    class="sr-only">(current)</span></a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>

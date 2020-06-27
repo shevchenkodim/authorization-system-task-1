@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+Введите пожалуйста свой номер телефона!
+{% endblock %}
+
+{% block body %}
+<div class="col-6">
+    <form action="{% url 'user:generating_otp' %}" method="POST">
+        {% if form.non_field_errors  %}
+        <p class="text-danger">
+            {{ form.non_field_errors }}
+        </p>
+        {% endif %}
+
+        {% csrf_token %}
+
+        <div class="form-label-group mb-3">
+            <label for="{{form.phone_number.id_for_label}}">Номер телефона</label>
+            <input required id="{{form.phone_number.id_for_label}}" name="{{form.phone_number.name}}" value=""
+                type="text" class="form-control" placeholder="Номер телефона">
+            {% if form.phone_number.errors %}
+            <div class="alert-danger mt-2 pt-1" role="alert">
+                {{form.phone_number.errors }}
+            </div>
+            {% endif %}
+        </div>
+
+        <button class="btn btn-primary" type="submit">Далее</button>
+    </form>
+</div>
+{% endblock %}
